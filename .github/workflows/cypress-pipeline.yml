@@ -1,0 +1,24 @@
+name: Continuous Integration Testing Pipeline
+
+# 1. Trigger: Run this pipeline every time code is pushed to the 'main' branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    # 2. Infrastructure: Use a clean, cloud-hosted Ubuntu Linux machine
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 3. Step A: Download your repository code onto the cloud machine
+      - name: Fetch Repository Source
+        uses: actions/checkout@v4
+      
+      # 4. Step B: Automatically install npm packages and run Cypress headlessly
+      - name: Execute Automated Test Plans
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
