@@ -1,0 +1,17 @@
+# Node modules dependencies folder
+node_modules/
+
+# Local Cypress media outputs
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Generated local Mochawesome reports
+cypress/reports/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Environmental variables secrets file
+.env
