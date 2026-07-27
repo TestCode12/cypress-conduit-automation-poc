@@ -27,14 +27,16 @@
 import { API_URL } from './constants';
 
 
-Cypress.Commands.add('signupByAPI', (username: string, email: string, pass: string) => 
-{
+Cypress.Commands.add('signupByAPI', (username: string, email: string, pass: string) => {
   return cy.request({
     method: 'POST',
     url: `${API_URL}/api/users`,
     failOnStatusCode: false,
-    body: {
-      user: { username, email, password: pass }
+    body: { user: { username, email, password: pass } }
+  }).then((response) => {
+    if (response.status === 201 || response.status === 200) {
+      const { token } = response.body.user;
+      window.localStorage.setItem('jwtToken', token);
     }
   });
 });
@@ -55,15 +57,14 @@ Cypress.Commands.add('loginByAPI', (email: string, pass: string) =>
     }
   }).then((response) => 
     {
-    // Keep your status verification block exactly the same...
-    if (response.status !== 200) 
-    {
-      cy.log('⚠️ API Authentication Failed! Response body:', JSON.stringify(response.body));
-      throw new Error(`Login failed with status code ${response.status}. Verify your credentials.`);
-    }
-    
-    const { token} = response.body.user;
-    window.localStorage.setItem('jwtToken', token);
+      // Keep your status verification block exactly the same...
+      if (response.status !== 200) 
+      {
+        cy.log('⚠️ API Authentication Failed! Response body:', JSON.stringify(response.body));
+        throw new Error(`Login failed with status code ${response.status}. Verify your credentials.`);
+      }
+      const { token} = response.body.user;
+      window.localStorage.setItem('jwtToken', token);
   });
 });
 
