@@ -1,7 +1,12 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
+  env: 
+  {
+      apiUrl: "https://api.realworld.show",
+  },
   e2e: {
+
     baseUrl: "https://demo.realworld.show",
     setupNodeEvents(on, config) 
     {

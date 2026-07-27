@@ -24,39 +24,45 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 // cypress/support/commands.ts
+import { API_URL } from './constants';
 
-declare namespace Cypress {
-  interface Chainable {
-    /**
-     * Programmatic API login bypass (App Action/API Bypass pattern)
-     * Avoids UI clicking overhead to set up state instantly.
-     */
-    loginByAPI(email: string, pass: string): Chainable<void>;
-  }
-}
 
-// cypress/support/commands.ts
+Cypress.Commands.add('signupByAPI', (username: string, email: string, pass: string) => 
+{
+  return cy.request({
+    method: 'POST',
+    url: `${API_URL}/api/users`,
+    failOnStatusCode: false,
+    body: {
+      user: { username, email, password: pass }
+    }
+  });
+});
 
-Cypress.Commands.add('loginByAPI', (email: string, pass: string) => {
+Cypress.Commands.add('loginByAPI', (email: string, pass: string) => 
+{
   cy.request({
     method: 'POST',
     // Change this to use the exact relative backend path of the demo application
-    url: '/api/users/login', 
+    url: `${API_URL}/api/users/login`, 
     failOnStatusCode: false,
-    body: {
-      user: {
-        email: email,
-        password: pass
+    body: 
+    {
+      user: 
+      {
+        email: email,password: pass
       }
     }
-  }).then((response) => {
+  }).then((response) => 
+    {
     // Keep your status verification block exactly the same...
-    if (response.status !== 200) {
+    if (response.status !== 200) 
+    {
       cy.log('⚠️ API Authentication Failed! Response body:', JSON.stringify(response.body));
       throw new Error(`Login failed with status code ${response.status}. Verify your credentials.`);
     }
     
-    const { token, username } = response.body.user;
+    const { token} = response.body.user;
     window.localStorage.setItem('jwtToken', token);
   });
 });
