@@ -4,18 +4,18 @@ import { LoginPage, ArticlePage } from '../page-objects/ConduitApp';
 const loginPage = new LoginPage();
 const articlePage = new ArticlePage();
 
-describe('Enterprise QA Automation Architecture', () => {
+describe('QA Automation Architecture', () => {
 
-  it('Scenario A (POM Pattern): Validate Error Interception on Failed UI Login', () => {
+  it('Scenario 1 (POM Pattern): Validate Error Interception on Failed UI Login', () => {
     loginPage.navigate();
     loginPage.submitLogin('invalid_user_de@domain.de', 'WrongPass123');
-    loginPage.verifyAuthenticationFailure('email or password');
+    loginPage.verifyAuthenticationFailure('credentials invalid');
   });
 
-  it('Scenario B (App Action/API Bypass Pattern): Create Article Post via Instant Pre-Auth', () => {
+  it('Scenario 2 (App Action/API Bypass Pattern): Create Article Post via Instant Pre-Auth', () => {
     // 1. Programmatically authenticate via API to bypass UI screens entirely
     // Replace with a valid test account on Conduit or sign up manually on the web UI first
-    cy.loginByAPI('your_registered_conduit_email@domain.com', 'YourPassword123');
+    cy.loginByAPI('test.user@example.com', 'TestPass123!');
 
     // 2. Drop the pre-authenticated browser session directly onto the restricted dashboard page
     articlePage.navigateToEditor();

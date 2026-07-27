@@ -1,7 +1,9 @@
 {
   "devDependencies": {
+    "@babel/preset-typescript": "^8.0.1",
     "@types/node": "^26.1.1",
     "cypress": "^15.19.0",
-    "cypress-mochawesome-reporter": "^4.0.2"
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "typescript": "^5.5.4"
   }
 }

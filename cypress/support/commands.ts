@@ -35,10 +35,14 @@ declare namespace Cypress {
   }
 }
 
+// cypress/support/commands.ts
+
 Cypress.Commands.add('loginByAPI', (email: string, pass: string) => {
   cy.request({
     method: 'POST',
-    url: 'https://realworld.io', // Conduit production API endpoint
+    // Change this to use the exact relative backend path of the demo application
+    url: '/api/users/login', 
+    failOnStatusCode: false,
     body: {
       user: {
         email: email,
@@ -46,16 +50,14 @@ Cypress.Commands.add('loginByAPI', (email: string, pass: string) => {
       }
     }
   }).then((response) => {
-    expect(response.status).to.eq(200);
+    // Keep your status verification block exactly the same...
+    if (response.status !== 200) {
+      cy.log('⚠️ API Authentication Failed! Response body:', JSON.stringify(response.body));
+      throw new Error(`Login failed with status code ${response.status}. Verify your credentials.`);
+    }
     
-    // Inject the authentication token directly into the browser memory
     const { token, username } = response.body.user;
     window.localStorage.setItem('jwtToken', token);
-    
-    // Optional: Log token retrieval inside the Cypress command log interface
-    Cypress.log({
-      name: 'API Login Bypass',
-      message: `Authenticated successfully as ${username}`
-    });
   });
 });
+
