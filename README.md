@@ -1,15 +1,39 @@
-# Advanced Enterprise E2E Test Automation Architecture (Conduit PoC)
+# Conduit Cypress Automation Suite
 
-This production-ready quality assurance framework is built entirely from scratch utilizing **Cypress** and **TypeScript**. It is specifically structured to showcase optimal hybrid engineering principles on single-page web applications.
+A TypeScript + Cypress end-to-end test automation framework built against the
+[Conduit](https://demo.realworld.show) demo application. This is a
+portfolio project demonstrating Page Object Model design, API-driven tests,
+and CI integration.
 
-## 📐 Architecture Strategies & Design Decisions
+![Cypress Tests](https://github.com/TestCode12/cypress-conduit-automation-poc/actions/workflows/cypress-pipeline.yml/badge.svg)
 
-### 1. Hybrid Optimization Engine (POM + App Actions)
-* **Page Object Model (POM):** Applied to isolate changing UI element trees and locators from programmatic code logic.
-* **App Actions (API Bypass):** Leverages a low-overhead custom command (`cy.loginByAPI()`) hitting endpoints programmatically to skip repetitive login UI patterns. This approach dramatically increases pipeline efficiency.
+## Tech Stack
+- Cypress (POM, API actions, Custom commands,Reports)
+- TypeScript
+- cypress-mochawesome-reporter
+- GitHub Actions (CI)
 
-### 2. Semantic Element Targeting
-Since the underlying open-source application lacks isolated `data-cy` or `data-test` markup tags, locators are engineered using structural semantic parameters (`input[type="email"]`) and text property arrays to maximize test resilience against styling refactors.
+## Project Structure
+cypress/
+e2e/ → test specs
+page-objects/ → Page Object Model classes
+support/ → custom commands, constants, type declarations
+fixtures/ → test data
+docs/
+test-plan.md → coverage and notes
+.github/workflows/ → CI pipeline
 
-### 3. Integrated Cloud Infrastructure
-Integrated with **GitHub Actions CI/CD workflows** to execute complete headless regressions inside isolated Chromium containers upon code merge activities.
+## How to Run Locally
+```bash
+npm install
+npm run cy:open     # opens interactive runner
+npm run cy:run       # headless run
+```
+
+## Test Coverage
+See [docs/test-plan.md] for full coverage details, including
+an edge case discovered during testing (signup does not enforce email
+uniqueness).
+
+## CI
+Tests run automatically on push via GitHub Actions. See workflow badge above.

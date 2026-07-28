@@ -26,21 +26,18 @@ describe('QA Automation Architecture', () =>
 
       it('Create Article Post by Pre-Authorization', () => 
       {
-      
         articlePage.navigateToEditor();
-
         const uniqueTitle = `Automated Deployment Report - Run ID ${Date.now()}`;
         articlePage.createNewArticle(uniqueTitle,
           'Automated testing insights framework tracking validation matrices.',
           '### Summary\nAll functional end-to-end nodes verified.'
         );
-
-        //Validate article creation
         articlePage.verifyArticleTitle(uniqueTitle);
       });
+
       it('edits an article successfully', () => 
       {
-        cy.signupByAPI(apiUser.username, apiUser.email, apiUser.password);
+        cy.loginByAPI( apiUser.email, apiUser.password);
         articlePage.navigateToEditor();
         const title = `Edit Test ${Date.now()}`;
         articlePage.createNewArticle(title, 'desc', 'body');
@@ -50,7 +47,7 @@ describe('QA Automation Architecture', () =>
 
     it('deletes an article successfully', () => 
     {
-      cy.signupByAPI(apiUser.username, apiUser.email, apiUser.password);
+      cy.loginByAPI( apiUser.email, apiUser.password);
       articlePage.navigateToEditor();
       const title = `Delete Test ${Date.now()}`;
       articlePage.createNewArticle(title, 'desc', 'body');
@@ -61,9 +58,7 @@ describe('QA Automation Architecture', () =>
     it('Re-signup with an existing email overwrites the account (known app behavior)', () => 
     {
       const sharedEmail = `shared.${Date.now()}@example.com`;
-
       cy.signupByAPI('firstuser' + Date.now(), sharedEmail, 'TestPass123!');
-
       cy.signupByAPI('seconduser' + Date.now(), sharedEmail, 'TestPass123!')
         .then((response) => {
           expect(response.status).to.eq(201);
@@ -83,10 +78,10 @@ describe('QA Automation Architecture', () =>
       password: 'TestPass123!' 
     };
 
-      it('Validate correct Signup', () => 
+    it('Validate correct Signup', () => 
     {
       signupPage.navigate();
-      signupPage.submitLogin(uiUser.username, uiUser.email, uiUser.password);
+      signupPage.submitSignup(uiUser.username, uiUser.email, uiUser.password);
       signupPage.verifySignupSuccess(uiUser.username);
     });
 
@@ -109,11 +104,8 @@ describe('QA Automation Architecture', () =>
       loginPage.navigate();
       loginPage.submitLogin(uiUser.email, uiUser.password);
       loginPage.verifyLoginSuccess(uiUser.username);
-
       settingsPage.navigate();
       settingsPage.logout();
-
-      // Check session cleared, Sign in link reappeared
       cy.get('a[href="/login"]').should('be.visible'); 
     })
   })

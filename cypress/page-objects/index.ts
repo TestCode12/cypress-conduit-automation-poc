@@ -3,3 +3,4 @@ export * from './ArticlePage';
 export * from './HomePage';
 export * from './ProfilePage';
 export * from './SignupPage';
+export * from './SettingsPage';

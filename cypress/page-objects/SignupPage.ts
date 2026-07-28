@@ -12,7 +12,7 @@ export class SignupPage
     cy.visit('/register');
   }
 
-  submitLogin(username: string, email: string, pass: string): void 
+  submitSignup(username: string, email: string, pass: string): void 
   {
     cy.get(this.usernameField).clear().type(username);
     cy.get(this.emailField).clear().type(email);

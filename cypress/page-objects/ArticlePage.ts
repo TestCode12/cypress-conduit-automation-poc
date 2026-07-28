@@ -23,5 +23,15 @@ export class ArticlePage
     cy.get('h1').should('be.visible').and('have.text', expectedTitle);
   }
 
-  //cy.cleanupArticle(slug)
+  editArticle(newTitle: string, newBody: string): void 
+  {
+    cy.get('a').contains('Edit Article').click();
+    cy.get(this.titleInput).clear().type(newTitle);
+    cy.get(this.bodyTextArea).clear().type(newBody);
+    cy.get(this.publishBtn).contains('Publish Article').click();
+ }
+
+  deleteArticle(): void {
+    cy.get('button').contains('Delete Article').click();
+}
 }
