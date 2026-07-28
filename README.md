@@ -8,20 +8,23 @@ and CI integration.
 ![Cypress Tests](https://github.com/TestCode12/cypress-conduit-automation-poc/actions/workflows/cypress-pipeline.yml/badge.svg)
 
 ## Tech Stack
-- Cypress (POM, API actions, Custom commands,Reports)
+- Cypress (POM, API actions, Custom commands, Reports)
 - TypeScript
 - cypress-mochawesome-reporter
 - GitHub Actions (CI)
 
 ## Project Structure
+
+```
 cypress/
-e2e/ → test specs
-page-objects/ → Page Object Model classes
-support/ → custom commands, constants, type declarations
-fixtures/ → test data
+  e2e/            → test specs
+  page-objects/   → Page Object Model classes
+  support/        → custom commands, constants, type declarations
+  fixtures/       → test data
 docs/
-test-plan.md → coverage and notes
+  test-plan.md    → coverage and notes
 .github/workflows/ → CI pipeline
+```
 
 ## How to Run Locally
 ```bash

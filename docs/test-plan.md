@@ -14,8 +14,8 @@ authentication, article management, and account settings.
 | Login | Invalid credentials show error | UI |
 | Logout | Session clears, Sign in link reappears | UI |
 | Article | Create via authenticated API session | API + UI |
-| Article | Edit existing article | UI |
-| Article | Delete article | UI |
+| Article | Edit existing article | API + UI |
+| Article | Delete article | API + UI |
 | Navigation | Sign In / Sign Up links route correctly | UI |
 
 ## Known Application Behavior
