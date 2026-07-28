@@ -6,9 +6,11 @@ export default defineConfig
   reporterOptions: 
   {
     reportDir: 'cypress/reports',
-    overwrite: false,
-    html: true,
-    json: true,
+    charts: true,
+    reportPageTitle: 'Conduit Cypress Test Report',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
   },
   e2e: 
   {
